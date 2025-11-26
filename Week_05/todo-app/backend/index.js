@@ -1,0 +1,20 @@
+// write basic express boilerplate code,
+// with express.json() middleware
+
+const express = require('express')
+const app = express()
+app.listen(3000)
+
+app.use(express.json());
+
+app.post('/todos', (req, res)=>{
+
+})
+
+app.get('/todos', (req, res)=>{
+
+})
+
+app.put('/completed', (req, res)=>{
+
+})

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../">
+    <title>Document</title>
+    <style>
+        .completed{
+            text-decoration: line-through;
+            color: gray;
+        }
+        button{
+            padding: 2px 10px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .add, .edit, .delete{
+            
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+        .add{
+            background-color: green;
+        }
+        .edit{
+            background-color: goldenrod;
+        }
+        .delete{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>📝 To-Do List</h2>
+    <input type="text" id="task" placeholder="Add a task">
+    <button onclick="addTask()" class="add">Add</button>
+
+    <div id="taskList"></div>
+
+    <script>
+        let taskList = document.getElementById("taskList")
+
+        function addTask(){
+            event.preventDefault(); // stop form refresh
+
+            let task = document.getElementById("task").value;
+            
+            let taskDiv = document.createElement("div")
+            taskDiv.className="task"
+
+            //checkbox
+            let checkbox = document.createElement("input")
+            checkbox.type = "checkbox"
+            checkbox.addEventListener("change", function(){
+                if(checkbox.checked){
+                    taskSpan.classList.add("completed")
+                }
+                else{
+                    taskSpan.classList.remove("completed")
+                }
+            })
+
+            // create task text
+            let taskSpan = document.createElement("span")
+            taskSpan.textContent = task
+
+            //edit button
+            let editBtn = document.createElement("button")
+            editBtn.className="edit"
+            editBtn.textContent="Edit"
+            editBtn.onclick = function(){
+                let newText = prompt("Edit Task: ", taskSpan.textContent)
+                taskSpan.textContent = newText
+            }
+
+            //delete button
+            let deleteBtn = document.createElement("button")
+            deleteBtn.className="delete"
+            deleteBtn.textContent = "Delete"
+            deleteBtn.onclick = function(){
+                taskList.removeChild(taskDiv)
+            }
+
+            taskDiv.appendChild(checkbox)
+            taskDiv.appendChild(taskSpan)
+            taskDiv.appendChild(editBtn)
+            taskDiv.appendChild(deleteBtn)
+            taskList.appendChild(taskDiv)
+
+            document.getElementById("task").value = ""
+            
+        }
+    </script>
+</body>
+</html>
